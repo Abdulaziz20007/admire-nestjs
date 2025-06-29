@@ -16,17 +16,19 @@ import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
 import { AccessTokenGuard } from "../common/guards";
 import { FileInterceptor } from "@nestjs/platform-express";
+import { Public } from "../common/decorators/public.decorator";
 
 @Controller("admin")
 @UseGuards(AccessTokenGuard)
 export class AdminController {
   constructor(private readonly adminService: AdminService) {}
 
+  // @Public()
   @Post()
   @UseInterceptors(FileInterceptor("avatar"))
   create(
     @Body() createAdminDto: CreateAdminDto,
-    @UploadedFile() avatar: Express.Multer.File,
+    @UploadedFile() avatar: Express.Multer.File
   ) {
     return this.adminService.create(createAdminDto, avatar);
   }
@@ -46,7 +48,7 @@ export class AdminController {
   update(
     @Param("id", ParseIntPipe) id: number,
     @Body() updateAdminDto: UpdateAdminDto,
-    @UploadedFile() avatar: Express.Multer.File,
+    @UploadedFile() avatar: Express.Multer.File
   ) {
     return this.adminService.update(id, updateAdminDto, avatar);
   }
