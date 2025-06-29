@@ -1,257 +1,268 @@
 {
-  "id": "ec31c942-3de6-4e34-8d98-4cbb3158b5b6",
+  "version": "6",
+  "dialect": "sqlite",
+  "id": "5a325609-f140-45a4-a340-95701717d7c1",
   "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "7",
-  "dialect": "postgresql",
   "tables": {
-    "public.admins": {
+    "admins": {
       "name": "admins",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "surname": {
           "name": "surname",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "username": {
           "name": "username",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "password": {
           "name": "password",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "priority": {
-          "name": "priority",
-          "type": "integer",
-          "primaryKey": false,
           "notNull": true,
-          "default": 0
+          "autoincrement": false
         },
         "avatar": {
           "name": "avatar",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
+        },
+        "priority": {
+          "name": "priority",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
         },
         "refresh_token": {
           "name": "refresh_token",
           "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
+      "indexes": {
         "admins_username_unique": {
           "name": "admins_username_unique",
-          "nullsNotDistinct": false,
           "columns": [
             "username"
-          ]
+          ],
+          "isUnique": true
         }
       },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
     },
-    "public.icons": {
+    "icons": {
       "name": "icons",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "url": {
           "name": "url",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.media": {
+    "media": {
       "name": "media",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "is_video": {
           "name": "is_video",
-          "type": "boolean",
+          "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "url": {
           "name": "url",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.messages": {
+    "messages": {
       "name": "messages",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "phone": {
           "name": "phone",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "message": {
           "name": "message",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "is_checked": {
           "name": "is_checked",
-          "type": "boolean",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": false
         },
         "is_telegram": {
           "name": "is_telegram",
-          "type": "boolean",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": false
         },
         "created_at": {
           "name": "created_at",
-          "type": "timestamp",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "now()"
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.phones": {
+    "phones": {
       "name": "phones",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "phone": {
           "name": "phone",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.socials": {
+    "socials": {
       "name": "socials",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "url": {
           "name": "url",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "icon_id": {
           "name": "icon_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -272,244 +283,157 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.students": {
+    "students": {
       "name": "students",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "surname": {
           "name": "surname",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "image": {
           "name": "image",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "certificate_photo": {
           "name": "certificate_photo",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "overall": {
-          "name": "overall",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "listening": {
-          "name": "listening",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "reading": {
-          "name": "reading",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "writing": {
-          "name": "writing",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "speaking": {
-          "name": "speaking",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "cefr": {
-          "name": "cefr",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "review_uz": {
-          "name": "review_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "review_en": {
-          "name": "review_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.teachers": {
-      "name": "teachers",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "surname": {
-          "name": "surname",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": false,
+          "autoincrement": false
         },
         "about_uz": {
           "name": "about_uz",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "about_en": {
           "name": "about_en",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "quote_uz": {
-          "name": "quote_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "quote_en": {
-          "name": "quote_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "image": {
-          "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "overall": {
-          "name": "overall",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "listening": {
-          "name": "listening",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "reading": {
-          "name": "reading",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "writing": {
-          "name": "writing",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "speaking": {
-          "name": "speaking",
-          "type": "real",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "cefr": {
-          "name": "cefr",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "experience": {
-          "name": "experience",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "students": {
-          "name": "students",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.web_media": {
-      "name": "web_media",
-      "schema": "",
+    "teachers": {
+      "name": "teachers",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "surname": {
+          "name": "surname",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "about_uz": {
+          "name": "about_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "about_en": {
+          "name": "about_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "web_media": {
+      "name": "web_media",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": false
         },
         "order": {
           "name": "order",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "size": {
           "name": "size",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": "'1x1'"
         },
         "web_id": {
           "name": "web_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "media_id": {
           "name": "media_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -543,31 +467,31 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.web_phone": {
+    "web_phone": {
       "name": "web_phone",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "web_id": {
           "name": "web_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "phone_id": {
           "name": "phone_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -601,31 +525,31 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.web_social": {
+    "web_social": {
       "name": "web_social",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "web_id": {
           "name": "web_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "social_id": {
           "name": "social_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -659,37 +583,38 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.web_student": {
+    "web_student": {
       "name": "web_student",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "order": {
           "name": "order",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "web_id": {
           "name": "web_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "student_id": {
           "name": "student_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -723,37 +648,38 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.web_teacher": {
+    "web_teacher": {
       "name": "web_teacher",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "order": {
           "name": "order",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "web_id": {
           "name": "web_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "teacher_id": {
           "name": "teacher_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -787,204 +713,112 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     },
-    "public.webs": {
+    "webs": {
       "name": "webs",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "header_img": {
           "name": "header_img",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "header_h1_uz": {
           "name": "header_h1_uz",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "header_h1_en": {
           "name": "header_h1_en",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "about_p1_uz": {
-          "name": "about_p1_uz",
+        "header_h2_uz": {
+          "name": "header_h2_uz",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "about_p1_en": {
-          "name": "about_p1_en",
+        "header_h2_en": {
+          "name": "header_h2_en",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "about_p2_uz": {
-          "name": "about_p2_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "about_p2_en": {
-          "name": "about_p2_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "total_students": {
-          "name": "total_students",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "best_students": {
-          "name": "best_students",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "total_teachers": {
-          "name": "total_teachers",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "gallery_p_uz": {
-          "name": "gallery_p_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "gallery_p_en": {
-          "name": "gallery_p_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "teachers_p_uz": {
-          "name": "teachers_p_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "teachers_p_en": {
-          "name": "teachers_p_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "students_p_uz": {
-          "name": "students_p_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "students_p_en": {
-          "name": "students_p_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "address_uz": {
           "name": "address_uz",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "address_en": {
           "name": "address_en",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
-        "orientation_uz": {
-          "name": "orientation_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "orientation_en": {
-          "name": "orientation_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "work_time": {
-          "name": "work_time",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "work_time_sunday": {
-          "name": "work_time_sunday",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "footer_p_uz": {
-          "name": "footer_p_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "footer_p_en": {
-          "name": "footer_p_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "main_phone_id": {
-          "name": "main_phone_id",
+        "phone_id": {
+          "name": "phone_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "email": {
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "extended_address_uz": {
           "name": "extended_address_uz",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "extended_address_en": {
           "name": "extended_address_en",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "is_active": {
           "name": "is_active",
-          "type": "boolean",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false,
           "default": false
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "webs_main_phone_id_phones_id_fk": {
-          "name": "webs_main_phone_id_phones_id_fk",
+        "webs_phone_id_phones_id_fk": {
+          "name": "webs_phone_id_phones_id_fk",
           "tableFrom": "webs",
           "tableTo": "phones",
           "columnsFrom": [
-            "main_phone_id"
+            "phone_id"
           ],
           "columnsTo": [
             "id"
@@ -995,20 +829,17 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
+      "checkConstraints": {}
     }
   },
-  "enums": {},
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
   "views": {},
+  "enums": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
+    "tables": {},
+    "columns": {}
+  },
+  "internal": {
+    "indexes": {}
   }
 }

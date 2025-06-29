@@ -127,6 +127,8 @@ export const data = {
         "Admire haqiqatan ham ingliz tilini yaxshilashimga va universitet uchun kerak bo'lgan ballni olishimga yordam berdi.",
       review_en:
         "Admire really helped me to improve my English and get the score I needed for university.",
+      about_uz: "Iqtidorli talaba.",
+      about_en: "A talented student.",
     },
     {
       name: "Javohir",
@@ -145,6 +147,8 @@ export const data = {
         "O'qituvchilar juda professional va qo'llab-quvvatlovchi. Bu markazni yuqori darajada tavsiya qilaman.",
       review_en:
         "The teachers are very professional and supportive. I highly recommend this center.",
+      about_uz: "G'ayratli o'quvchi.",
+      about_en: "A motivated learner.",
     },
     {
       name: "Kamila",
@@ -163,6 +167,8 @@ export const data = {
         "Ingliz tilini o'rganish va IELTS ga tayyorlanish uchun ajoyib joy. Rahmat Admire!",
       review_en:
         "A great place to learn English and prepare for IELTS. Thank you Admire!",
+      about_uz: "Kelajakdagi yetakchi.",
+      about_en: "A future leader.",
     },
   ],
   messages: [
@@ -171,14 +177,14 @@ export const data = {
       phone: "+998 90 123 45 69",
       message: "I would like to inquire about your IELTS preparation courses.",
       is_checked: false,
-      created_at: new Date("2023-05-15T10:30:00Z"),
+      created_at: new Date("2023-05-15T10:30:00Z").toISOString(),
     },
     {
       name: "Aziza Karimova",
       phone: "+998 90 987 65 43",
       message: "Men sizning kurslaringiz haqida ma'lumot olmoqchiman.",
       is_checked: true,
-      created_at: new Date("2023-05-14T15:45:00Z"),
+      created_at: new Date("2023-05-14T15:45:00Z").toISOString(),
     },
   ],
   web: {
@@ -187,6 +193,8 @@ export const data = {
     header_h1_uz:
       "Bizning mutaxassis til ko'rsatmalari bilan o'zingizning salohiyatingizni oshiring",
     header_h1_en: "Increase your potential with our expert language guidance",
+    header_h2_uz: "IELTS va boshqa imtihonlarga tayyorlaning",
+    header_h2_en: "Prepare for IELTS and other exams",
     about_p1_uz:
       "2015 yilda asos solingan Admire o'quv markazi, talabalarni o'z salohiyatini ro'yobga chiqarishga yordam beruvchi yuqori sifatli ta'lim berish bilan shug'ullanadi.",
     about_p1_en:
@@ -218,7 +226,7 @@ export const data = {
     work_time_sunday: "Yakshanba: Yopiq",
     footer_p_uz: "Kelajakni ta'lim orqali qurish",
     footer_p_en: "Building the future through education",
-    main_phone_id: 1,
+    phone_id: 1,
     email: "contact@admire.edu",
     extended_address_uz:
       "Andijon shahri, Bobur shoh ko'chasi, 23-uy. Mo'ljal: Eski shahar markazi.",

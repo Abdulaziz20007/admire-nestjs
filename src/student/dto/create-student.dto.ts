@@ -11,4 +11,6 @@ export class CreateStudentDto {
   cefr: string;
   review_uz: string;
   review_en: string;
+  about_uz: string;
+  about_en: string;
 }

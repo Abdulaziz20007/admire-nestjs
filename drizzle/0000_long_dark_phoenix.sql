@@ -1,0 +1,127 @@
+CREATE TABLE `admins` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`surname` text NOT NULL,
+	`username` text NOT NULL,
+	`password` text NOT NULL,
+	`avatar` text,
+	`priority` integer,
+	`refresh_token` text
+);
+--> statement-breakpoint
+CREATE UNIQUE INDEX `admins_username_unique` ON `admins` (`username`);--> statement-breakpoint
+CREATE TABLE `icons` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`url` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `media` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`is_video` integer NOT NULL,
+	`url` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `messages` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`phone` text NOT NULL,
+	`message` text NOT NULL,
+	`is_checked` integer DEFAULT false NOT NULL,
+	`is_telegram` integer DEFAULT false NOT NULL,
+	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `phones` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`phone` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `socials` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`url` text NOT NULL,
+	`icon_id` integer NOT NULL,
+	FOREIGN KEY (`icon_id`) REFERENCES `icons`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `students` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`surname` text NOT NULL,
+	`image` text NOT NULL,
+	`certificate_photo` text,
+	`about_uz` text NOT NULL,
+	`about_en` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `teachers` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`name` text NOT NULL,
+	`surname` text NOT NULL,
+	`about_uz` text NOT NULL,
+	`about_en` text NOT NULL,
+	`image` text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE `web_media` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`order` integer NOT NULL,
+	`size` text DEFAULT '1x1' NOT NULL,
+	`web_id` integer NOT NULL,
+	`media_id` integer NOT NULL,
+	FOREIGN KEY (`web_id`) REFERENCES `webs`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`media_id`) REFERENCES `media`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `web_phone` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`web_id` integer NOT NULL,
+	`phone_id` integer NOT NULL,
+	FOREIGN KEY (`web_id`) REFERENCES `webs`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`phone_id`) REFERENCES `phones`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `web_social` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`web_id` integer NOT NULL,
+	`social_id` integer NOT NULL,
+	FOREIGN KEY (`web_id`) REFERENCES `webs`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`social_id`) REFERENCES `socials`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `web_student` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`order` integer NOT NULL,
+	`web_id` integer NOT NULL,
+	`student_id` integer NOT NULL,
+	FOREIGN KEY (`web_id`) REFERENCES `webs`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`student_id`) REFERENCES `students`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `web_teacher` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`order` integer NOT NULL,
+	`web_id` integer NOT NULL,
+	`teacher_id` integer NOT NULL,
+	FOREIGN KEY (`web_id`) REFERENCES `webs`(`id`) ON UPDATE no action ON DELETE cascade,
+	FOREIGN KEY (`teacher_id`) REFERENCES `teachers`(`id`) ON UPDATE no action ON DELETE cascade
+);
+--> statement-breakpoint
+CREATE TABLE `webs` (
+	`id` integer PRIMARY KEY NOT NULL,
+	`header_img` text NOT NULL,
+	`header_h1_uz` text NOT NULL,
+	`header_h1_en` text NOT NULL,
+	`header_h2_uz` text NOT NULL,
+	`header_h2_en` text NOT NULL,
+	`address_uz` text NOT NULL,
+	`address_en` text NOT NULL,
+	`phone_id` integer NOT NULL,
+	`email` text NOT NULL,
+	`extended_address_uz` text NOT NULL,
+	`extended_address_en` text NOT NULL,
+	`is_active` integer DEFAULT false NOT NULL,
+	FOREIGN KEY (`phone_id`) REFERENCES `phones`(`id`) ON UPDATE no action ON DELETE cascade
+);
