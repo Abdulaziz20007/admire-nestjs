@@ -63,18 +63,24 @@ export class CloudflareService {
       })
     );
 
-    return `https://${this.publicDomain}/${key}`;
+    return `/${key}`;
   }
 
   async deleteFile(url: string) {
-    if (!url || !url.startsWith("http")) return;
-    const key = new URL(url).pathname.substring(1); // remove leading slash
+    if (!url) {
+      return;
+    }
+    let key: string;
+    if (url.startsWith("http")) {
+      key = new URL(url).pathname.substring(1); // remove leading slash
+    } else {
+      key = url.startsWith("/") ? url.substring(1) : url;
+    }
 
-    await this.s3.send(
-      new DeleteObjectCommand({
-        Bucket: this.bucketName,
-        Key: key,
-      })
-    );
+    if (key) {
+      await this.s3.send(
+        new DeleteObjectCommand({ Bucket: this.bucketName, Key: key })
+      );
+    }
   }
 }
