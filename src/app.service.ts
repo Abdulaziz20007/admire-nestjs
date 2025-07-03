@@ -32,7 +32,10 @@ export class AppService {
     private readonly webStudentService: WebStudentService
   ) {}
 
-  web() {
+  web(isVisit: boolean = false) {
+    if (isVisit) {
+      return this.webService.increaseVisits(1);
+    }
     return this.webService.getActiveWeb();
   }
 

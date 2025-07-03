@@ -3,7 +3,7 @@ import { CreateWebDto } from "./dto/create-web.dto";
 import { UpdateWebDto } from "./dto/update-web.dto";
 import { DB } from "../drizzle/db";
 import { webs } from "../drizzle/schema";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 @Injectable()
 export class WebService {
@@ -66,6 +66,9 @@ export class WebService {
   async getActiveWeb() {
     const result = await this.db.query.webs.findFirst({
       where: eq(webs.is_active, true),
+      columns: {
+        visits: false,
+      },
       with: {
         main_phone: true,
         web_media: {
@@ -103,6 +106,10 @@ export class WebService {
   }
 
   async setActiveWeb(id: number) {
+    await this.db.update(webs).set({
+      is_active: false,
+    });
+
     const result = await this.db
       .update(webs)
       .set({
@@ -111,5 +118,21 @@ export class WebService {
       .where(eq(webs.id, id))
       .returning();
     return result;
+  }
+
+  async increaseVisits(id: number) {
+    const result = await this.db
+      .update(webs)
+      .set({ visits: sql`visits + 1` })
+      .where(eq(webs.id, id))
+      .returning();
+    return result;
+  }
+
+  async getVisits(id: number) {
+    const result = await this.db.query.webs.findFirst({
+      where: eq(webs.id, id),
+    });
+    return result?.visits || 0;
   }
 }

@@ -1,4 +1,4 @@
-import { Controller, Post } from "@nestjs/common";
+import { Controller, Headers, Post } from "@nestjs/common";
 import { AppService } from "./app.service";
 import { Public } from "./common/decorators/public.decorator";
 
@@ -8,8 +8,11 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Post()
-  web() {
-    return this.appService.web();
+  web(@Headers("origin") origin: string) {
+    const isVisit =
+      origin?.includes("admirelc.uz") || origin?.includes("www.admirelc.uz");
+    console.log(isVisit);
+    return this.appService.web(isVisit);
   }
 
   @Post("init")

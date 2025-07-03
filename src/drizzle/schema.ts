@@ -40,7 +40,13 @@ export const messages = sqliteTable("messages", {
   is_telegram: integer("is_telegram", { mode: "boolean" })
     .default(false)
     .notNull(),
+  updated_admin_id: integer("updated_admin_id").references(() => admins.id, {
+    onDelete: "cascade",
+  }),
   created_at: text("created_at")
+    .default(sql`CURRENT_TIMESTAMP`)
+    .notNull(),
+  updated_at: text("updated_at")
     .default(sql`CURRENT_TIMESTAMP`)
     .notNull(),
 });
@@ -67,9 +73,15 @@ export const students = sqliteTable("students", {
   name: text("name").notNull(),
   surname: text("surname").notNull(),
   image: text("image").notNull(),
-  certificate_photo: text("certificate_photo"),
-  about_uz: text("about_uz").notNull(),
-  about_en: text("about_en").notNull(),
+  certificate_image: text("certificate_image"),
+  overall: real("overall"),
+  listening: real("listening"),
+  reading: real("reading"),
+  writing: real("writing"),
+  speaking: real("speaking"),
+  cefr: text("cefr"),
+  review_uz: text("review_uz"),
+  review_en: text("review_en"),
 });
 
 // Teachers ------------------------------------------------
@@ -79,7 +91,17 @@ export const teachers = sqliteTable("teachers", {
   surname: text("surname").notNull(),
   about_uz: text("about_uz").notNull(),
   about_en: text("about_en").notNull(),
+  quote_uz: text("quote_uz").notNull(),
+  quote_en: text("quote_en").notNull(),
   image: text("image").notNull(),
+  overall: real("overall"),
+  listening: real("listening"),
+  reading: real("reading"),
+  writing: real("writing"),
+  speaking: real("speaking"),
+  cefr: text("cefr"),
+  experience: integer("experience"),
+  students: integer("students"),
 });
 
 // Webs ----------------------------------------------------
@@ -88,17 +110,31 @@ export const webs = sqliteTable("webs", {
   header_img: text("header_img").notNull(),
   header_h1_uz: text("header_h1_uz").notNull(),
   header_h1_en: text("header_h1_en").notNull(),
-  header_h2_uz: text("header_h2_uz").notNull(),
-  header_h2_en: text("header_h2_en").notNull(),
+  about_p1_uz: text("about_p1_uz").notNull(),
+  about_p1_en: text("about_p1_en").notNull(),
+  about_p2_uz: text("about_p2_uz").notNull(),
+  about_p2_en: text("about_p2_en").notNull(),
+  total_students: integer("total_students").notNull(),
+  best_students: text("best_students").notNull(),
+  total_teachers: integer("total_teachers").notNull(),
+  gallery_p_uz: text("gallery_p_uz").notNull(),
+  gallery_p_en: text("gallery_p_en").notNull(),
+  teachers_p_uz: text("teachers_p_uz").notNull(),
+  teachers_p_en: text("teachers_p_en").notNull(),
+  students_p_uz: text("students_p_uz").notNull(),
+  students_p_en: text("students_p_en").notNull(),
   address_uz: text("address_uz").notNull(),
   address_en: text("address_en").notNull(),
-  phone_id: integer("phone_id")
+  orientation_uz: text("orientation_uz").notNull(),
+  orientation_en: text("orientation_en").notNull(),
+  work_time: text("work_time").notNull(),
+  work_time_sunday: text("work_time_sunday").notNull(),
+  main_phone_id: integer("main_phone_id")
     .notNull()
     .references(() => phones.id, { onDelete: "cascade" }),
   email: text("email").notNull(),
-  extended_address_uz: text("extended_address_uz").notNull(),
-  extended_address_en: text("extended_address_en").notNull(),
   is_active: integer("is_active", { mode: "boolean" }).notNull().default(false),
+  visits: integer("visits").notNull().default(0),
 });
 
 // WebMedia ------------------------------------------------
@@ -174,7 +210,7 @@ export const socialsRelations = relations(socials, ({ one }) => ({
 
 export const websRelations = relations(webs, ({ one, many }) => ({
   main_phone: one(phones, {
-    fields: [webs.phone_id],
+    fields: [webs.main_phone_id],
     references: [phones.id],
   }),
   web_media: many(web_media),

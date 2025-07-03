@@ -30,7 +30,10 @@ CREATE TABLE `messages` (
 	`message` text NOT NULL,
 	`is_checked` integer DEFAULT false NOT NULL,
 	`is_telegram` integer DEFAULT false NOT NULL,
-	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL
+	`updated_admin_id` integer,
+	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	`updated_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	FOREIGN KEY (`updated_admin_id`) REFERENCES `admins`(`id`) ON UPDATE no action ON DELETE cascade
 );
 --> statement-breakpoint
 CREATE TABLE `phones` (
@@ -51,9 +54,15 @@ CREATE TABLE `students` (
 	`name` text NOT NULL,
 	`surname` text NOT NULL,
 	`image` text NOT NULL,
-	`certificate_photo` text,
-	`about_uz` text NOT NULL,
-	`about_en` text NOT NULL
+	`certificate_image` text,
+	`overall` real,
+	`listening` real,
+	`reading` real,
+	`writing` real,
+	`speaking` real,
+	`cefr` text,
+	`review_uz` text,
+	`review_en` text
 );
 --> statement-breakpoint
 CREATE TABLE `teachers` (
@@ -62,7 +71,17 @@ CREATE TABLE `teachers` (
 	`surname` text NOT NULL,
 	`about_uz` text NOT NULL,
 	`about_en` text NOT NULL,
-	`image` text NOT NULL
+	`quote_uz` text NOT NULL,
+	`quote_en` text NOT NULL,
+	`image` text NOT NULL,
+	`overall` real,
+	`listening` real,
+	`reading` real,
+	`writing` real,
+	`speaking` real,
+	`cefr` text,
+	`experience` integer,
+	`students` integer
 );
 --> statement-breakpoint
 CREATE TABLE `web_media` (
@@ -114,14 +133,28 @@ CREATE TABLE `webs` (
 	`header_img` text NOT NULL,
 	`header_h1_uz` text NOT NULL,
 	`header_h1_en` text NOT NULL,
-	`header_h2_uz` text NOT NULL,
-	`header_h2_en` text NOT NULL,
+	`about_p1_uz` text NOT NULL,
+	`about_p1_en` text NOT NULL,
+	`about_p2_uz` text NOT NULL,
+	`about_p2_en` text NOT NULL,
+	`total_students` integer NOT NULL,
+	`best_students` text NOT NULL,
+	`total_teachers` integer NOT NULL,
+	`gallery_p_uz` text NOT NULL,
+	`gallery_p_en` text NOT NULL,
+	`teachers_p_uz` text NOT NULL,
+	`teachers_p_en` text NOT NULL,
+	`students_p_uz` text NOT NULL,
+	`students_p_en` text NOT NULL,
 	`address_uz` text NOT NULL,
 	`address_en` text NOT NULL,
-	`phone_id` integer NOT NULL,
+	`orientation_uz` text NOT NULL,
+	`orientation_en` text NOT NULL,
+	`work_time` text NOT NULL,
+	`work_time_sunday` text NOT NULL,
+	`main_phone_id` integer NOT NULL,
 	`email` text NOT NULL,
-	`extended_address_uz` text NOT NULL,
-	`extended_address_en` text NOT NULL,
 	`is_active` integer DEFAULT false NOT NULL,
-	FOREIGN KEY (`phone_id`) REFERENCES `phones`(`id`) ON UPDATE no action ON DELETE cascade
+	`visits` integer DEFAULT 0 NOT NULL,
+	FOREIGN KEY (`main_phone_id`) REFERENCES `phones`(`id`) ON UPDATE no action ON DELETE cascade
 );

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "5a325609-f140-45a4-a340-95701717d7c1",
+  "id": "882d7a7b-1bca-40a4-a084-d9512d8f98bd",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "admins": {
@@ -194,8 +194,23 @@
           "autoincrement": false,
           "default": false
         },
+        "updated_admin_id": {
+          "name": "updated_admin_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
         "created_at": {
           "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "CURRENT_TIMESTAMP"
+        },
+        "updated_at": {
+          "name": "updated_at",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -204,7 +219,21 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "messages_updated_admin_id_admins_id_fk": {
+          "name": "messages_updated_admin_id_admins_id_fk",
+          "tableFrom": "messages",
+          "tableTo": "admins",
+          "columnsFrom": [
+            "updated_admin_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "checkConstraints": {}
@@ -316,25 +345,67 @@
           "notNull": true,
           "autoincrement": false
         },
-        "certificate_photo": {
-          "name": "certificate_photo",
+        "certificate_image": {
+          "name": "certificate_image",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "about_uz": {
-          "name": "about_uz",
-          "type": "text",
+        "overall": {
+          "name": "overall",
+          "type": "real",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
-        "about_en": {
-          "name": "about_en",
+        "listening": {
+          "name": "listening",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reading": {
+          "name": "reading",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "writing": {
+          "name": "writing",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "speaking": {
+          "name": "speaking",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cefr": {
+          "name": "cefr",
           "type": "text",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "review_uz": {
+          "name": "review_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "review_en": {
+          "name": "review_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
@@ -382,11 +453,81 @@
           "notNull": true,
           "autoincrement": false
         },
+        "quote_uz": {
+          "name": "quote_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "quote_en": {
+          "name": "quote_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
         "image": {
           "name": "image",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "overall": {
+          "name": "overall",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "listening": {
+          "name": "listening",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "reading": {
+          "name": "reading",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "writing": {
+          "name": "writing",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "speaking": {
+          "name": "speaking",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "cefr": {
+          "name": "cefr",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "experience": {
+          "name": "experience",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "students": {
+          "name": "students",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
@@ -746,15 +887,92 @@
           "notNull": true,
           "autoincrement": false
         },
-        "header_h2_uz": {
-          "name": "header_h2_uz",
+        "about_p1_uz": {
+          "name": "about_p1_uz",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "header_h2_en": {
-          "name": "header_h2_en",
+        "about_p1_en": {
+          "name": "about_p1_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "about_p2_uz": {
+          "name": "about_p2_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "about_p2_en": {
+          "name": "about_p2_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "total_students": {
+          "name": "total_students",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "best_students": {
+          "name": "best_students",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "total_teachers": {
+          "name": "total_teachers",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "gallery_p_uz": {
+          "name": "gallery_p_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "gallery_p_en": {
+          "name": "gallery_p_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "teachers_p_uz": {
+          "name": "teachers_p_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "teachers_p_en": {
+          "name": "teachers_p_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "students_p_uz": {
+          "name": "students_p_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "students_p_en": {
+          "name": "students_p_en",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -774,8 +992,36 @@
           "notNull": true,
           "autoincrement": false
         },
-        "phone_id": {
-          "name": "phone_id",
+        "orientation_uz": {
+          "name": "orientation_uz",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "orientation_en": {
+          "name": "orientation_en",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "work_time": {
+          "name": "work_time",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "work_time_sunday": {
+          "name": "work_time_sunday",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "main_phone_id": {
+          "name": "main_phone_id",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
@@ -788,20 +1034,6 @@
           "notNull": true,
           "autoincrement": false
         },
-        "extended_address_uz": {
-          "name": "extended_address_uz",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
-        "extended_address_en": {
-          "name": "extended_address_en",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false
-        },
         "is_active": {
           "name": "is_active",
           "type": "integer",
@@ -809,16 +1041,24 @@
           "notNull": true,
           "autoincrement": false,
           "default": false
+        },
+        "visits": {
+          "name": "visits",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": 0
         }
       },
       "indexes": {},
       "foreignKeys": {
-        "webs_phone_id_phones_id_fk": {
-          "name": "webs_phone_id_phones_id_fk",
+        "webs_main_phone_id_phones_id_fk": {
+          "name": "webs_main_phone_id_phones_id_fk",
           "tableFrom": "webs",
           "tableTo": "phones",
           "columnsFrom": [
-            "phone_id"
+            "main_phone_id"
           ],
           "columnsTo": [
             "id"
