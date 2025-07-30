@@ -22,7 +22,6 @@ export class AuthService {
       name: admin.name,
       surname: admin.surname,
       username: admin.username,
-      priority: admin.priority,
     };
 
     const [accessToken, refreshToken] = await Promise.all([
@@ -53,6 +52,8 @@ export class AuthService {
     return {
       httpOnly: true,
       maxAge: maxAgeInMs,
+      sameSite: "lax",
+      secure: false,
     };
   }
 

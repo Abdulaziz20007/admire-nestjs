@@ -3,6 +3,5 @@ export class CreateAdminDto {
   surname: string;
   username: string;
   password: string;
-  priority?: number;
   avatar?: string;
 }

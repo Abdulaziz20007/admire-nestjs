@@ -5,7 +5,6 @@ CREATE TABLE `admins` (
 	`username` text NOT NULL,
 	`password` text NOT NULL,
 	`avatar` text,
-	`priority` integer,
 	`refresh_token` text
 );
 --> statement-breakpoint
@@ -28,7 +27,7 @@ CREATE TABLE `messages` (
 	`name` text NOT NULL,
 	`phone` text NOT NULL,
 	`message` text NOT NULL,
-	`is_checked` integer DEFAULT false NOT NULL,
+	`is_checked` integer DEFAULT 0 NOT NULL,
 	`is_telegram` integer DEFAULT false NOT NULL,
 	`updated_admin_id` integer,
 	`created_at` text DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -138,7 +137,7 @@ CREATE TABLE `webs` (
 	`about_p2_uz` text NOT NULL,
 	`about_p2_en` text NOT NULL,
 	`total_students` integer NOT NULL,
-	`best_students` text NOT NULL,
+	`best_students` integer NOT NULL,
 	`total_teachers` integer NOT NULL,
 	`gallery_p_uz` text NOT NULL,
 	`gallery_p_en` text NOT NULL,
@@ -152,7 +151,7 @@ CREATE TABLE `webs` (
 	`orientation_en` text NOT NULL,
 	`work_time` text NOT NULL,
 	`work_time_sunday` text NOT NULL,
-	`main_phone_id` integer NOT NULL,
+	`main_phone_id` integer,
 	`email` text NOT NULL,
 	`is_active` integer DEFAULT false NOT NULL,
 	`visits` integer DEFAULT 0 NOT NULL,

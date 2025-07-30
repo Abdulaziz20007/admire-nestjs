@@ -2,8 +2,6 @@ export class CreateWebDto {
   header_img: string;
   header_h1_uz: string;
   header_h1_en: string;
-  header_h2_uz: string;
-  header_h2_en: string;
   about_p1_uz: string;
   about_p1_en: string;
   about_p2_uz: string;
@@ -25,8 +23,6 @@ export class CreateWebDto {
   work_time_sunday: string;
   footer_p_uz: string;
   footer_p_en: string;
-  phone_id: number;
+  main_phone_id: number;
   email: string;
-  extended_address_uz: string;
-  extended_address_en: string;
 }

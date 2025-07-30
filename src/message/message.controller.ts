@@ -8,11 +8,13 @@ import {
   Delete,
   ParseIntPipe,
   UseGuards,
+  Req,
 } from "@nestjs/common";
 import { MessageService } from "./message.service";
 import { CreateMessageDto } from "./dto/create-message.dto";
 import { UpdateMessageDto } from "./dto/update-message.dto";
 import { AccessTokenGuard } from "../common/guards";
+import { Request } from "express";
 
 @Controller("message")
 @UseGuards(AccessTokenGuard)
@@ -34,10 +36,19 @@ export class MessageController {
     return this.messageService.findOne(id);
   }
 
+  @Patch(":id/check/:is_checked")
+  setChecked(
+    @Param("id", ParseIntPipe) id: number,
+    @Param("is_checked", ParseIntPipe) is_checked: number,
+    @Req() req: Request
+  ) {
+    return this.messageService.setChecked(id, req.user!.id, is_checked);
+  }
+
   @Patch(":id")
   update(
     @Param("id", ParseIntPipe) id: number,
-    @Body() updateMessageDto: UpdateMessageDto,
+    @Body() updateMessageDto: UpdateMessageDto
   ) {
     return this.messageService.update(id, updateMessageDto);
   }

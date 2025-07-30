@@ -115,7 +115,7 @@ export const data = {
       surname: "Alieva",
       image:
         "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1887&auto=format&fit=crop",
-      certificate_photo:
+      certificate_image:
         "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=1887&auto=format&fit=crop",
       overall: 8.5,
       listening: 9.0,
@@ -127,15 +127,13 @@ export const data = {
         "Admire haqiqatan ham ingliz tilini yaxshilashimga va universitet uchun kerak bo'lgan ballni olishimga yordam berdi.",
       review_en:
         "Admire really helped me to improve my English and get the score I needed for university.",
-      about_uz: "Iqtidorli talaba.",
-      about_en: "A talented student.",
     },
     {
       name: "Javohir",
       surname: "Karimov",
       image:
         "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1887&auto=format&fit=crop",
-      certificate_photo:
+      certificate_image:
         "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1887&auto=format&fit=crop",
       overall: 8.0,
       listening: 8.5,
@@ -147,15 +145,13 @@ export const data = {
         "O'qituvchilar juda professional va qo'llab-quvvatlovchi. Bu markazni yuqori darajada tavsiya qilaman.",
       review_en:
         "The teachers are very professional and supportive. I highly recommend this center.",
-      about_uz: "G'ayratli o'quvchi.",
-      about_en: "A motivated learner.",
     },
     {
       name: "Kamila",
       surname: "Usmanova",
       image:
         "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
-      certificate_photo:
+      certificate_image:
         "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1961&auto=format&fit=crop",
       overall: 7.5,
       listening: 8.0,
@@ -167,8 +163,6 @@ export const data = {
         "Ingliz tilini o'rganish va IELTS ga tayyorlanish uchun ajoyib joy. Rahmat Admire!",
       review_en:
         "A great place to learn English and prepare for IELTS. Thank you Admire!",
-      about_uz: "Kelajakdagi yetakchi.",
-      about_en: "A future leader.",
     },
   ],
   messages: [
@@ -176,15 +170,19 @@ export const data = {
       name: "John Doe",
       phone: "+998 90 123 45 69",
       message: "I would like to inquire about your IELTS preparation courses.",
-      is_checked: false,
+      is_checked: 0,
+      is_telegram: false,
       created_at: new Date("2023-05-15T10:30:00Z").toISOString(),
+      updated_at: new Date("2023-05-15T10:30:00Z").toISOString(),
     },
     {
       name: "Aziza Karimova",
       phone: "+998 90 987 65 43",
       message: "Men sizning kurslaringiz haqida ma'lumot olmoqchiman.",
-      is_checked: true,
+      is_checked: 2,
+      is_telegram: false,
       created_at: new Date("2023-05-14T15:45:00Z").toISOString(),
+      updated_at: new Date("2023-05-14T15:45:00Z").toISOString(),
     },
   ],
   web: {
@@ -193,8 +191,6 @@ export const data = {
     header_h1_uz:
       "Bizning mutaxassis til ko'rsatmalari bilan o'zingizning salohiyatingizni oshiring",
     header_h1_en: "Increase your potential with our expert language guidance",
-    header_h2_uz: "IELTS va boshqa imtihonlarga tayyorlaning",
-    header_h2_en: "Prepare for IELTS and other exams",
     about_p1_uz:
       "2015 yilda asos solingan Admire o'quv markazi, talabalarni o'z salohiyatini ro'yobga chiqarishga yordam beruvchi yuqori sifatli ta'lim berish bilan shug'ullanadi.",
     about_p1_en:
@@ -226,12 +222,8 @@ export const data = {
     work_time_sunday: "Yakshanba: Yopiq",
     footer_p_uz: "Kelajakni ta'lim orqali qurish",
     footer_p_en: "Building the future through education",
-    phone_id: 1,
+    main_phone_id: 1,
     email: "contact@admire.edu",
-    extended_address_uz:
-      "Andijon shahri, Bobur shoh ko'chasi, 23-uy. Mo'ljal: Eski shahar markazi.",
-    extended_address_en:
-      "23 Bobur avenue, Andijan city. Landmark: Old city center.",
     is_active: true,
   },
   web_media: [
@@ -320,6 +312,17 @@ export const data = {
       web_id: 1,
       teacher_id: 3,
       order: 3,
+    },
+  ],
+  admins: [
+    {
+      name: "Admin",
+      surname: "User",
+      username: "admin",
+      password: "admin",
+      avatar:
+        "https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1780&auto=format&fit=crop",
+      refresh_token: null,
     },
   ],
 };

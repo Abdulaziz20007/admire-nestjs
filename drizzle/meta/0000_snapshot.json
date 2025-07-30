@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "882d7a7b-1bca-40a4-a084-d9512d8f98bd",
+  "id": "1bdd9533-0356-4aed-84a0-5ea5b9317aa2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "admins": {
@@ -45,13 +45,6 @@
         "avatar": {
           "name": "avatar",
           "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "priority": {
-          "name": "priority",
-          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -184,7 +177,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": false
+          "default": 0
         },
         "is_telegram": {
           "name": "is_telegram",
@@ -924,7 +917,7 @@
         },
         "best_students": {
           "name": "best_students",
-          "type": "text",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
@@ -1024,7 +1017,7 @@
           "name": "main_phone_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": true,
+          "notNull": false,
           "autoincrement": false
         },
         "email": {

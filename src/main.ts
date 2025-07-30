@@ -1,7 +1,6 @@
 import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import * as cookieparser from "cookie-parser";
-import { BadRequestException } from "@nestjs/common";
 import { AllExceptionsFilter } from "./common/filters/all-exceptions.filter";
 
 async function bootstrap() {
@@ -14,14 +13,10 @@ async function bootstrap() {
   app.use(cookieparser());
 
   app.enableCors({
-    origin: (origin, callback) => {
-      const allowedOrigins = ["http://localhost:3000"];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new BadRequestException("Not allowed by Cors"));
-      }
-    },
+    origin: "http://localhost:3000", // React admin dashboard
+    credentials: true, // Allow cookies / auth headers
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type,Authorization",
   });
 
   await app.listen(PORT, () => {

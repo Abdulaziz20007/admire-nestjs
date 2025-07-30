@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { data } from "./data";
 import { IconService } from "./icon/icon.service";
+import { AdminService } from "./admin/admin.service";
 import { MediaService } from "./media/media.service";
 import { MessageService } from "./message/message.service";
 import { PhoneService } from "./phone/phone.service";
@@ -18,6 +19,7 @@ import { WebService } from "./web/web.service";
 export class AppService {
   constructor(
     private readonly webService: WebService,
+    private readonly adminService: AdminService,
     private readonly iconService: IconService,
     private readonly socialService: SocialService,
     private readonly phoneService: PhoneService,
@@ -41,6 +43,12 @@ export class AppService {
 
   async init() {
     console.log("Initialization started...");
+
+    // 0. Create Admins
+    const createdAdmins = await Promise.all(
+      data.admins.map((admin) => this.adminService.create(admin))
+    );
+    console.log("Created Admins:", createdAdmins);
 
     // 1. Create Icons
     const createdIcons = await Promise.all(

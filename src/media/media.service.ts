@@ -18,6 +18,35 @@ export class MediaService {
     private readonly cloudflareService: CloudflareService
   ) {}
 
+  private isVideo(file?: Express.Multer.File, url?: string): boolean {
+    // Determine if the media should be classified as video
+    if (file) {
+      return file.mimetype?.startsWith("video/") ?? false;
+    }
+
+    if (url) {
+      try {
+        const pathname = url.startsWith("http") ? new URL(url).pathname : url;
+        const ext = pathname.split(".").pop()?.toLowerCase() ?? "";
+        const videoExtensions = [
+          "mp4",
+          "mov",
+          "avi",
+          "mkv",
+          "webm",
+          "flv",
+          "wmv",
+        ];
+        return videoExtensions.includes(ext);
+      } catch {
+        // Fallback – if URL parsing fails, default to false (treat as image)
+        return false;
+      }
+    }
+
+    return false;
+  }
+
   async create(createMediaDto: CreateMediaDto, file?: Express.Multer.File) {
     let url: string;
     if (file) {
@@ -30,13 +59,16 @@ export class MediaService {
       throw new BadRequestException("File or URL is required.");
     }
 
-    const { url: _url, ...rest } = createMediaDto;
+    // Exclude url and is_video from the spread to avoid accidental overrides
+    const { url: _url, is_video: _is_video, ...rest } = createMediaDto;
+
+    const isVideo = this.isVideo(file, url);
 
     const [createdMedia] = await this.db
       .insert(media)
       .values({
         ...rest,
-        is_video: createMediaDto.is_video ?? false,
+        is_video: isVideo,
         url,
       })
       .returning();
@@ -75,10 +107,17 @@ export class MediaService {
       url = await this.cloudflareService.uploadFile(file, "media");
     }
 
-    const { url: _url, ...rest } = updateMediaDto;
+    // Exclude url and is_video to control the flag ourselves
+    const { url: _url, is_video: _is_video, ...rest } = updateMediaDto;
     const valuesToUpdate: any = { ...rest };
     if (url) {
       valuesToUpdate.url = url;
+    }
+
+    // Determine if we should update the is_video flag
+    if (file || updateMediaDto.url) {
+      const newUrl = url ?? updateMediaDto.url ?? existingMedia.url;
+      valuesToUpdate.is_video = this.isVideo(file, newUrl);
     }
 
     const [updatedMedia] = await this.db

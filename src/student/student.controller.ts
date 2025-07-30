@@ -26,16 +26,16 @@ export class StudentController {
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: "image", maxCount: 1 },
-      { name: "certificate_photo", maxCount: 1 },
-    ]),
+      { name: "certificate_image", maxCount: 1 },
+    ])
   )
   create(
     @Body() createStudentDto: CreateStudentDto,
     @UploadedFiles()
     files: {
       image?: Express.Multer.File[];
-      certificate_photo?: Express.Multer.File[];
-    },
+      certificate_image?: Express.Multer.File[];
+    }
   ) {
     return this.studentService.create(createStudentDto, files);
   }
@@ -54,8 +54,8 @@ export class StudentController {
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: "image", maxCount: 1 },
-      { name: "certificate_photo", maxCount: 1 },
-    ]),
+      { name: "certificate_image", maxCount: 1 },
+    ])
   )
   update(
     @Param("id", ParseIntPipe) id: number,
@@ -63,8 +63,8 @@ export class StudentController {
     @UploadedFiles()
     files: {
       image?: Express.Multer.File[];
-      certificate_photo?: Express.Multer.File[];
-    },
+      certificate_image?: Express.Multer.File[];
+    }
   ) {
     return this.studentService.update(id, updateStudentDto, files);
   }

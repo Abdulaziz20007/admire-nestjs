@@ -31,6 +31,30 @@ export class MessageService {
     return message;
   }
 
+  async setChecked(id: number, admin_id: number, is_checked: number) {
+    const [updatedMessage] = await this.db
+      .update(messages)
+      .set({ updated_admin_id: admin_id, is_checked })
+      .where(eq(messages.id, id))
+      .returning();
+    if (!updatedMessage) {
+      throw new NotFoundException("Message not found.");
+    }
+    return updatedMessage;
+  }
+
+  async setCheckedTelegram(id: number, is_checked: number) {
+    const [updatedMessage] = await this.db
+      .update(messages)
+      .set({ is_checked, is_telegram: true })
+      .where(eq(messages.id, id))
+      .returning();
+    if (!updatedMessage) {
+      throw new NotFoundException("Message not found.");
+    }
+    return updatedMessage;
+  }
+
   async update(id: number, updateMessageDto: UpdateMessageDto) {
     const [updatedMessage] = await this.db
       .update(messages)

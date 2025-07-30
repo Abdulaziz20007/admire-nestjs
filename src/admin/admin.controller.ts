@@ -14,7 +14,8 @@ import {
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create-admin.dto";
 import { UpdateAdminDto } from "./dto/update-admin.dto";
-import { AccessTokenGuard } from "../common/guards";
+import { AccessTokenGuard, SuperAdminGuard } from "../common/guards";
+import { ChangeAdminPasswordDto } from "./dto/change-admin-password.dto";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Public } from "../common/decorators/public.decorator";
 
@@ -25,6 +26,7 @@ export class AdminController {
 
   // @Public()
   @Post()
+  @UseGuards(AccessTokenGuard, SuperAdminGuard)
   @UseInterceptors(FileInterceptor("avatar"))
   create(
     @Body() createAdminDto: CreateAdminDto,
@@ -44,6 +46,7 @@ export class AdminController {
   }
 
   @Patch(":id")
+  @UseGuards(AccessTokenGuard, SuperAdminGuard)
   @UseInterceptors(FileInterceptor("avatar"))
   update(
     @Param("id", ParseIntPipe) id: number,
@@ -54,7 +57,14 @@ export class AdminController {
   }
 
   @Delete(":id")
+  @UseGuards(AccessTokenGuard, SuperAdminGuard)
   remove(@Param("id", ParseIntPipe) id: number) {
     return this.adminService.remove(id);
+  }
+
+  @Patch("change-password")
+  @UseGuards(AccessTokenGuard)
+  changePassword(@Body() changePasswordDto: ChangeAdminPasswordDto) {
+    return this.adminService.changePassword(changePasswordDto);
   }
 }

@@ -9,7 +9,6 @@ export const admins = sqliteTable("admins", {
   username: text("username").notNull().unique(),
   password: text("password").notNull(),
   avatar: text("avatar"),
-  priority: integer("priority"),
   refresh_token: text("refresh_token"),
 });
 
@@ -34,8 +33,8 @@ export const messages = sqliteTable("messages", {
   name: text("name").notNull(),
   phone: text("phone").notNull(),
   message: text("message").notNull(),
-  is_checked: integer("is_checked", { mode: "boolean" })
-    .default(false)
+  is_checked: integer("is_checked")
+    .default(0) // 0 - pending, 1 - rejected, 2 - checked
     .notNull(),
   is_telegram: integer("is_telegram", { mode: "boolean" })
     .default(false)
@@ -115,7 +114,7 @@ export const webs = sqliteTable("webs", {
   about_p2_uz: text("about_p2_uz").notNull(),
   about_p2_en: text("about_p2_en").notNull(),
   total_students: integer("total_students").notNull(),
-  best_students: text("best_students").notNull(),
+  best_students: integer("best_students").notNull(),
   total_teachers: integer("total_teachers").notNull(),
   gallery_p_uz: text("gallery_p_uz").notNull(),
   gallery_p_en: text("gallery_p_en").notNull(),
@@ -129,9 +128,9 @@ export const webs = sqliteTable("webs", {
   orientation_en: text("orientation_en").notNull(),
   work_time: text("work_time").notNull(),
   work_time_sunday: text("work_time_sunday").notNull(),
-  main_phone_id: integer("main_phone_id")
-    .notNull()
-    .references(() => phones.id, { onDelete: "cascade" }),
+  main_phone_id: integer("main_phone_id").references(() => phones.id, {
+    onDelete: "cascade",
+  }),
   email: text("email").notNull(),
   is_active: integer("is_active", { mode: "boolean" }).notNull().default(false),
   visits: integer("visits").notNull().default(0),

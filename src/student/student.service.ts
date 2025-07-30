@@ -22,7 +22,7 @@ export class StudentService {
     createStudentDto: CreateStudentDto,
     files?: {
       image?: Express.Multer.File[];
-      certificate_photo?: Express.Multer.File[];
+      certificate_image?: Express.Multer.File[];
     }
   ) {
     let imageUrl: string;
@@ -35,31 +35,31 @@ export class StudentService {
       imageUrl = createStudentDto.image;
     }
 
-    let certificatePhotoUrl: string;
-    if (files && files.certificate_photo && files.certificate_photo[0]) {
-      certificatePhotoUrl = await this.cloudflareService.uploadFile(
-        files.certificate_photo[0],
+    let certificateImageUrl: string;
+    if (files && files.certificate_image && files.certificate_image[0]) {
+      certificateImageUrl = await this.cloudflareService.uploadFile(
+        files.certificate_image[0],
         "students/certificates"
       );
     } else {
-      certificatePhotoUrl = createStudentDto.certificate_photo;
+      certificateImageUrl = createStudentDto.certificate_image;
     }
 
     if (!imageUrl) {
       throw new BadRequestException("Student image is required.");
     }
-    if (!certificatePhotoUrl) {
-      throw new BadRequestException("Certificate photo is required.");
+    if (!certificateImageUrl) {
+      throw new BadRequestException("Certificate image is required.");
     }
 
-    const { image, certificate_photo, ...rest } = createStudentDto;
+    const { image, certificate_image, ...rest } = createStudentDto;
 
     const [createdStudent] = await this.db
       .insert(students)
       .values({
         ...rest,
         image: imageUrl,
-        certificate_photo: certificatePhotoUrl,
+        certificate_image: certificateImageUrl,
       })
       .returning();
     return createdStudent;
@@ -82,9 +82,9 @@ export class StudentService {
   async update(
     id: number,
     updateStudentDto: UpdateStudentDto,
-    files: {
+    files?: {
       image?: Express.Multer.File[];
-      certificate_photo?: Express.Multer.File[];
+      certificate_image?: Express.Multer.File[];
     }
   ) {
     const existingStudent = await this.findOne(id);
@@ -93,7 +93,7 @@ export class StudentService {
     }
 
     let imageUrl: string | undefined;
-    if (files.image && files.image[0]) {
+    if (files?.image && files.image[0]) {
       if (existingStudent.image) {
         await this.cloudflareService.deleteFile(existingStudent.image);
       }
@@ -103,26 +103,26 @@ export class StudentService {
       );
     }
 
-    let certificatePhotoUrl: string | undefined;
-    if (files.certificate_photo && files.certificate_photo[0]) {
-      if (existingStudent.certificate_photo) {
+    let certificateImageUrl: string | undefined;
+    if (files?.certificate_image && files.certificate_image[0]) {
+      if (existingStudent.certificate_image) {
         await this.cloudflareService.deleteFile(
-          existingStudent.certificate_photo
+          existingStudent.certificate_image
         );
       }
-      certificatePhotoUrl = await this.cloudflareService.uploadFile(
-        files.certificate_photo[0],
+      certificateImageUrl = await this.cloudflareService.uploadFile(
+        files.certificate_image[0],
         "students/certificates"
       );
     }
 
-    const { image, certificate_photo, ...rest } = updateStudentDto;
+    const { image, certificate_image, ...rest } = updateStudentDto;
     const valuesToUpdate: any = { ...rest };
     if (imageUrl) {
       valuesToUpdate.image = imageUrl;
     }
-    if (certificatePhotoUrl) {
-      valuesToUpdate.certificate_photo = certificatePhotoUrl;
+    if (certificateImageUrl) {
+      valuesToUpdate.certificate_image = certificateImageUrl;
     }
 
     const [updatedStudent] = await this.db
@@ -142,8 +142,8 @@ export class StudentService {
       if (student.image) {
         await this.cloudflareService.deleteFile(student.image);
       }
-      if (student.certificate_photo) {
-        await this.cloudflareService.deleteFile(student.certificate_photo);
+      if (student.certificate_image) {
+        await this.cloudflareService.deleteFile(student.certificate_image);
       }
     }
 

@@ -63,7 +63,8 @@ export class CloudflareService {
       })
     );
 
-    return `/${key}`;
+    // Return the publicly accessible URL to be stored in the DB
+    return `https://${this.publicDomain}/${key}`;
   }
 
   async deleteFile(url: string) {
