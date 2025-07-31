@@ -1,6 +1,7 @@
 import {
   Injectable,
   ConflictException,
+  BadRequestException,
   Inject,
   NotFoundException,
 } from "@nestjs/common";
@@ -124,6 +125,9 @@ export class AdminService {
   }
 
   async changePassword(dto: ChangeAdminPasswordDto) {
+    if (!dto) {
+      throw new BadRequestException("Request body is missing.");
+    }
     const { admin_id, old_password, new_password } = dto;
     this.idChecker.check(admin_id);
 

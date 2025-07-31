@@ -53,12 +53,13 @@ export class AdminController {
   }
 
   @Put("change-password")
+  @Patch("change-password")
   @UseGuards(AccessTokenGuard)
   changePassword(@Body() changePasswordDto: ChangeAdminPasswordDto) {
     return this.adminService.changePassword(changePasswordDto);
   }
 
-  @Patch(":id")
+  @Patch(":id(\\d+)")
   @UseGuards(AccessTokenGuard, SuperAdminGuard)
   @UseInterceptors(FileInterceptor("avatar"))
   update(
