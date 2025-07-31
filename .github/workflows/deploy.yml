@@ -1,0 +1,68 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # (Optional) Use specific Node.js version on the runner if you want to run tests/lint
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: "20"
+
+      # --------------------------------------------------------------------
+      # Prepare SSH configuration on the GitHub runner
+      # --------------------------------------------------------------------
+      - name: Prepare SSH keys & known hosts
+        env:
+          ID_ED: ${{ secrets.ID_ED }}
+          KNOWN_HOSTS: ${{ secrets.KNOWN_HOSTS }}
+          OLD_KNOWN_HOSTS: ${{ secrets.OLD_KNOWN_HOSTS }}
+          CONFIG: ${{ secrets.CONFIG }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$ID_ED" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+          # Known hosts files
+          echo "$KNOWN_HOSTS" > ~/.ssh/known_hosts
+          echo "$OLD_KNOWN_HOSTS" > ~/.ssh/known_hosts.old
+
+          # SSH config
+          echo "$CONFIG" > ~/.ssh/config
+          chmod 600 ~/.ssh/config
+
+      # --------------------------------------------------------------------
+      # Deploy to the remote server via SSH & PM2
+      # --------------------------------------------------------------------
+      - name: Deploy via SSH and PM2
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: new
+          key_path: ~/.ssh/id_ed25519 # use key we just created
+          port: ${{ secrets.SERVER_PORT || 22 }} # optional, defaults to 22
+          script: |
+            cd /root/projects/admire
+            echo "Stopping existing PM2 app..."
+            pm2 stop admire:4415 || true
+
+            echo "Pulling latest code..."
+            git pull origin main
+
+            echo "Installing dependencies..."
+            npm install --production
+
+            echo "Building project..."
+            npm run build
+
+            echo "Restarting PM2 app..."
+            pm2 start admire:4415
+            pm2 save

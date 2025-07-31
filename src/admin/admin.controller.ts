@@ -45,17 +45,6 @@ export class AdminController {
     return this.adminService.findOne(id);
   }
 
-  @Patch(":id")
-  @UseGuards(AccessTokenGuard, SuperAdminGuard)
-  @UseInterceptors(FileInterceptor("avatar"))
-  update(
-    @Param("id", ParseIntPipe) id: number,
-    @Body() updateAdminDto: UpdateAdminDto,
-    @UploadedFile() avatar: Express.Multer.File
-  ) {
-    return this.adminService.update(id, updateAdminDto, avatar);
-  }
-
   @Delete(":id")
   @UseGuards(AccessTokenGuard, SuperAdminGuard)
   remove(@Param("id", ParseIntPipe) id: number) {
@@ -66,5 +55,16 @@ export class AdminController {
   @UseGuards(AccessTokenGuard)
   changePassword(@Body() changePasswordDto: ChangeAdminPasswordDto) {
     return this.adminService.changePassword(changePasswordDto);
+  }
+
+  @Patch(":id")
+  @UseGuards(AccessTokenGuard, SuperAdminGuard)
+  @UseInterceptors(FileInterceptor("avatar"))
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() updateAdminDto: UpdateAdminDto,
+    @UploadedFile() avatar: Express.Multer.File
+  ) {
+    return this.adminService.update(id, updateAdminDto, avatar);
   }
 }
