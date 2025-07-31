@@ -18,6 +18,7 @@ async function bootstrap() {
       "http://localhost:3001",
       "https://admirelc.uz",
       "https://www.admirelc.uz",
+      "https://admin.admirelc.uz",
     ],
     credentials: true,
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
