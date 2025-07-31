@@ -10,6 +10,7 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
+  Put,
 } from "@nestjs/common";
 import { AdminService } from "./admin.service";
 import { CreateAdminDto } from "./dto/create-admin.dto";
@@ -51,7 +52,7 @@ export class AdminController {
     return this.adminService.remove(id);
   }
 
-  @Patch("change-password")
+  @Put("change-password")
   @UseGuards(AccessTokenGuard)
   changePassword(@Body() changePasswordDto: ChangeAdminPasswordDto) {
     return this.adminService.changePassword(changePasswordDto);
