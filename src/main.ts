@@ -13,7 +13,7 @@ async function bootstrap() {
   app.use(cookieparser());
 
   app.enableCors({
-    origin: "http://localhost:3000", // React admin dashboard
+    origin: ["http://localhost:3000", "http://localhost:3001"], // React admin dashboard
     credentials: true, // Allow cookies / auth headers
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
     allowedHeaders: "Content-Type,Authorization",
