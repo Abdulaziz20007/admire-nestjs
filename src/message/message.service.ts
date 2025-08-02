@@ -4,16 +4,26 @@ import { UpdateMessageDto } from "./dto/update-message.dto";
 import { DB } from "../drizzle/db";
 import { messages } from "../drizzle/schema";
 import { eq } from "drizzle-orm";
+import { TelegramService } from "../telegram/telegram.service";
 
 @Injectable()
 export class MessageService {
-  constructor(@Inject("DRIZZLE") private readonly db: DB) {}
+  constructor(
+    @Inject("DRIZZLE") private readonly db: DB,
+    private readonly telegramService: TelegramService
+  ) {}
 
   async create(createMessageDto: CreateMessageDto) {
     const [createdMessage] = await this.db
       .insert(messages)
       .values(createMessageDto)
       .returning();
+
+    // Notify via telegram in the background (fire & forget)
+    this.telegramService
+      .notifyNewMessage(createdMessage as any)
+      .catch(() => undefined);
+
     return createdMessage;
   }
 
