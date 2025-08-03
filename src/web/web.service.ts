@@ -395,8 +395,6 @@ export class WebService {
       },
     });
 
-    console.log(result);
-
     return result;
   }
 
