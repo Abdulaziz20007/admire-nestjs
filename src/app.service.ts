@@ -34,10 +34,17 @@ export class AppService {
     private readonly webStudentService: WebStudentService
   ) {}
 
-  web(isVisit: boolean = false) {
+  async web(isVisit: boolean = false) {
     if (isVisit) {
-      return this.webService.increaseVisits(1);
+      // Update the visits counter but don’t block the response if something goes wrong
+      try {
+        await this.webService.increaseVisits(1);
+      } catch (error) {
+        console.error("Failed to update visits counter", error);
+      }
     }
+
+    // Always return the full public web configuration
     return this.webService.getActiveWeb();
   }
 

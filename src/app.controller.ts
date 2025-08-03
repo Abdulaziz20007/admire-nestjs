@@ -7,7 +7,7 @@ import { Public } from "./common/decorators/public.decorator";
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post()
+  @Post() // POST api/admirelc.uz/
   web(@Headers("origin") origin: string) {
     const isVisit =
       origin?.includes("admirelc.uz") || origin?.includes("www.admirelc.uz");
